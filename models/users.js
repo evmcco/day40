@@ -1,5 +1,4 @@
-const db = require('./conn.js'),
-    bcrypt = require('bcryptjs');
+const db = require('./conn.js');
 
 class User {
 
@@ -9,10 +8,6 @@ class User {
         this.last_name = last_name;
         this.email = email;
         this.password = password;
-    }
-
-    async checkPassword(hashedPassword) {
-        return bcrypt.compareSync(this.password, hashedPassword)
     }
 
     async save() {
@@ -30,17 +25,10 @@ class User {
         }
     }
 
-    async login() {
+    async getUserByEmail() {
         try {
             const response = await db.one(`select * from users where email = $1`, [this.email]);
-            const isValid = await this.checkPassword(response.password);
-            console.log("isValid:", isValid);
-            if (!!isValid) {
-                const {first_name, last_name, id} = response
-                return {isValid, first_name, last_name, user_id: id}
-            } else {
-                return {isValid}
-            }
+            return response
         } catch(err) {
             return err.message;
         }
