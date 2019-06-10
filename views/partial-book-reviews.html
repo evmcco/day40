@@ -1,0 +1,44 @@
+<h1>Reviews for ${bookInfo.title} by ${bookInfo.author}</h1>
+<img src="${bookInfo.cover_image}"/>
+<section class="section">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>User ID</td>
+                <td>Score</td>
+                <td>Review</td>
+            </tr>
+        </thead>
+        ${reviews.map(review => 
+            `<tr>
+                <td>${review.user_id}</td>
+                <td>${review.stars}</td> 
+                <td>${review.content}</td>
+            </tr>`
+            ).join('')
+        }
+    </table>    
+</section>
+<h1>Add Your Review:</h1>
+<section class="section">
+    <form method = "POST">
+        <input type="hidden" name="bookId" value="${bookInfo.id}">
+        <input type="hidden" name="userId" value ="${userID}">
+        <div>
+        <label>Score:</label>
+            <select name="score">
+                <option value = "1">⭐</option>
+                <option value = "2">⭐⭐</option>
+                <option value = "3">⭐⭐⭐</option>
+                <option value = "4">⭐⭐⭐⭐</option>
+                <option value = "5">⭐⭐⭐⭐⭐</option>
+            </select>
+        </div>
+        <div>
+        <label>What did tou think?</label>
+            <input type="text" name = "content">
+        </div>
+        <br>
+        <button type="submit" class="is-primary">Submit</button>
+    </form>
+</section>
