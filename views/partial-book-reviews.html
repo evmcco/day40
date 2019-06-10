@@ -19,6 +19,7 @@
         }
     </table>    
 </section>
+${!!is_logged_in ? `
 <h1>Add Your Review:</h1>
 <section class="section">
     <form method = "POST">
@@ -42,3 +43,6 @@
         <button type="submit" class="is-primary">Submit</button>
     </form>
 </section>
+` : `
+    <p>Log in to place a review!</p>
+`}

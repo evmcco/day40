@@ -32,7 +32,7 @@ class Books {
     static async addReview(bookId, userId, score, content) {
         const query = `insert into reviews(user_id, book_id, score, content) values (${userId}, ${bookId}, ${score}, '${content}');`
         try {
-            let response = await db.result(query);
+            const response = await db.result(query);
             return response
         } catch(err) {
             return err.message

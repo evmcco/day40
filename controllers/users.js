@@ -43,13 +43,14 @@ exports.login_post = async (req, res) => {
     const userInstance = new User (null, null, null, email, password);
 
     const userData = await userInstance.getUserByEmail()
-
+    console.log(userData);
     const isValid = bcrypt.compareSync(password, userData.password);
     if (!!isValid) {
         req.session.is_logged_in = true;
         req.session.first_name = userData.first_name;
         req.session.last_name = userData.last_name;
-        req.session.user_id = userData.user_id;
+        req.session.user_id = userData.id;
+        console.log(req.session);
         res.redirect('/books');
     } else {
         res.sendStatus(401);
