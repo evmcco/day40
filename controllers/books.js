@@ -58,7 +58,7 @@ exports.review_post = async (req, res) => {
     const bookReviews = await booksModel.getBookReviews(req.params.book_id);
     for (review in bookReviews) {
         bookReviews[review].stars = numberToStars(bookReviews[review].score)
-    }
+        }
     res.render('template', {
         locals: {
             title: 'Book Reviews',
@@ -70,6 +70,5 @@ exports.review_post = async (req, res) => {
         partials: {
             partial: 'partial-book-reviews'
         }
-    }
-    )
+    })
 }
