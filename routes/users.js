@@ -2,6 +2,7 @@ const express = require('express'),
   router = express.Router(),
   bcrypt = require('bcryptjs'),
   User = require('../models/users');
+  UsersControllers = require('../controllers/users')
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -18,18 +19,9 @@ router.get('/', function(req, res, next) {
   })
 });
 
-router.get('/signup', (req, res) => {
-  res.render('template', {
-    locals: {
-      title: 'Signup Page',
-      is_logged_in: req.session.is_logged_in,
-      userID: req.session.user_id
-    },
-    partials: {
-      partial: 'partial-signup-form' 
-    }
-  })
-})
+router.get('/signup', UsersControllers.signup_get);
+router.get('/login', UsersControllers.login_get);
+
 
 router.post('/signup', (req,res) => {
   const {first_name, last_name, email, password} = req.body;
@@ -45,18 +37,6 @@ router.post('/signup', (req,res) => {
   });
 })
 
-router.get('/login', (req, res) => {
-  res.render('template', {
-    locals: {
-      title: 'Login Page',
-      is_logged_in: req.session.is_logged_in,
-      userID: req.session.user_id
-    },
-    partials: {
-      partial: 'partial-login-form'
-    }
-  })
-})
 
 router.post('/login', (req,res) => {
   const {email, password} = req.body;
